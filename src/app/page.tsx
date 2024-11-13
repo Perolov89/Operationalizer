@@ -33,7 +33,7 @@ const Home: React.FC = () => {
       <article className={styles.canvas_container}>
         <h1 className={styles.h1}>Draw a Number</h1>
         <Canvas onSubmit={submitDrawing} />
-        <h1>Prediction{prediction}</h1>
+        <h1>Prediction: {prediction}</h1>
       </article>
     </main>
   );

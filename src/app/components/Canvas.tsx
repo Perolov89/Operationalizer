@@ -59,7 +59,7 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
       />
-      <button onClick={handleSubmit} className={styles.submit_button}>Send to Flask Backend</button>
+      <button onClick={handleSubmit} className={styles.submit_button}>Send to Backend</button>
     </main>
   );
 };
