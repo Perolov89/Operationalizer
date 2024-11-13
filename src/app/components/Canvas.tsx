@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import styles from "./canvas.module.css";
 
 interface CanvasProps {
   onSubmit: (imageDataUrl: string) => void;
@@ -15,7 +16,7 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    ctx.lineWidth = 15;
+    ctx.lineWidth = 10;
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'black';
 
@@ -47,19 +48,19 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div>
+    <main className={styles.main}>
       <canvas
         ref={canvasRef}
         width={280}
         height={280}
-        style={{ border: '1px solid black' }}
+        className={styles.canvas}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
       />
-      <button onClick={handleSubmit}>Send to Flask Backend</button>
-    </div>
+      <button onClick={handleSubmit} className={styles.submit_button}>Send to Flask Backend</button>
+    </main>
   );
 };
 
