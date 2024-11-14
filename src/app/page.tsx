@@ -44,4 +44,6 @@ export default Home;
 function usestate(arg0: string): [any, any] {
   throw new Error("Function not implemented.");
 }
+
+
 // added touch screen
