@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from "react";
 import styles from "./canvas.module.css";
 
 interface CanvasProps {
@@ -12,9 +12,9 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (ctx) {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
     }
@@ -24,12 +24,12 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    ctx.lineWidth = 30;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 20;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "black";
 
     ctx.beginPath();
     ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -39,7 +39,7 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!drawing) return;
 
-    const ctx = canvasRef.current?.getContext('2d');
+    const ctx = canvasRef.current?.getContext("2d");
     if (ctx) {
       ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
       ctx.stroke();
@@ -53,7 +53,7 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
   const handleSubmit = () => {
     const canvas = canvasRef.current;
     if (canvas) {
-      const dataUrl = canvas.toDataURL('image/png');
+      const dataUrl = canvas.toDataURL("image/png");
       onSubmit(dataUrl);
     }
   };
@@ -61,11 +61,11 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
   const handleClear = () => {
     const canvas = canvasRef.current;
     if (canvas) {
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         // Reapply white background again after clearing
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
     }
@@ -83,8 +83,12 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
       />
-      <button onClick={handleSubmit} className={styles.submit_button}>Send to Backend</button>
-      <button onClick={handleClear} className={styles.clear_button}>Clear</button>
+      <button onClick={handleSubmit} className={styles.submit_button}>
+        Send to Backend
+      </button>
+      <button onClick={handleClear} className={styles.clear_button}>
+        Clear
+      </button>
     </main>
   );
 };
