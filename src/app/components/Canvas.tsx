@@ -3,11 +3,16 @@ import styles from "./canvas.module.css";
 
 interface CanvasProps {
   onSubmit: (imageDataUrl: string) => void;
+  clearTrigger?: boolean;
 }
 
-const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
+const Canvas: React.FC<CanvasProps> = ({ onSubmit, clearTrigger }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);
+
+  useEffect(() => {
+    handleClear();
+  }, [clearTrigger]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -83,9 +88,6 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit }) => {
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
       />
-      <button onClick={handleSubmit} className={styles.submit_button}>
-        Send to Backend
-      </button>
       <button onClick={handleClear} className={styles.clear_button}>
         Clear
       </button>

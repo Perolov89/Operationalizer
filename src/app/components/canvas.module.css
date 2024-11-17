@@ -1,35 +1,42 @@
-
-
-.canvas {
-  border: 2px solid #dddddd;
-  border-radius: 8px;
-  margin-bottom: 20px;
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; 
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f3f3f3, #ffffff); 
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  width: 320px; 
 }
 
-.submit_button {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.canvas {
+  width: 280px;
+  height: 280px;
+  border: 3px solid #666666;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .clear_button {
-  background-color: #ba2323;
-  color: white;
-  padding: 10px 20px;
-  margin-top: 15px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
 }
 
-.submit_button:hover {
-  background-color: #45a049;
+.clear_button {
+  background: linear-gradient(135deg, #ff4e4e, #ba2323);
+  color: white;
+}
+
+.clear_button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
