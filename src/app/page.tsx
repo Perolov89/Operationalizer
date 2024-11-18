@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Canvas from "./components/Canvas";
 import SmokeBackground from "./components/SmokeBackground";
 import styles from "./page.module.css";
+import Link from "next/link";
 
 /**
 Home Component
@@ -21,7 +22,7 @@ const Home: React.FC = () => {
 
   const submitDrawing = async (dataUrls: string[]) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/predict", {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL as string, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,8 +115,10 @@ const Home: React.FC = () => {
           </article>
         </section>
 
-        {result && <div className={styles.result}>Operationalizer says:  {result}</div>}
-        <div className={styles.buttonContainer}>
+        {result && (
+          <div className={styles.result}>Operationalizer says: {result}</div>
+        )}
+        <section className={styles.buttonContainer}>
           <button
             className={styles.operationalizeButton}
             onClick={handleOperationalize}
@@ -125,7 +128,15 @@ const Home: React.FC = () => {
           <button className={styles.clearButton} onClick={handleClearAll}>
             Clear All
           </button>
-        </div>
+        </section>
+        <section className={styles.link_container}>
+          <Link className={styles.link} href="https://github.com/Perolov89">
+            Github
+          </Link>
+          <Link className={styles.link} href="https://www.linkedin.com/in/olle-s-013162273/">
+            LinkedIn
+          </Link>
+        </section>
       </main>
     </>
   );
