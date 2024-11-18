@@ -1,6 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./canvas.module.css";
 
+/**
+Canvas Component
+ 
+The component on which the user draws the numbers and operators used to 
+predict and calculate.
+*/
+
 interface CanvasProps {
   // Callback function to handle the submission of the canvas drawing.
   onSubmit: (imageDataUrl: string) => void;

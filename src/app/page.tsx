@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Canvas from "./components/Canvas";
+import SmokeBackground from "./components/SmokeBackground";
 import styles from "./page.module.css";
 
 /**
@@ -15,9 +16,8 @@ const Home: React.FC = () => {
   const [clearTrigger, setClearTrigger] = useState(false); // State to trigger clearing all canvases.
   const [result, setResult] = useState<number | null>(null); // State to hold the calculated result.
 
-
-   // Submits the drawn images to the backend for processing.
-   // dataUrls - Array of Base64 encoded strings representing the canvas content.
+  // Submits the drawn images to the backend for processing.
+  // dataUrls - Array of Base64 encoded strings representing the canvas content.
 
   const submitDrawing = async (dataUrls: string[]) => {
     try {
@@ -91,41 +91,42 @@ const Home: React.FC = () => {
   };
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>The operationalizer</h1>
+    <>
+      <SmokeBackground />
+      <main className={styles.main}>
+        <h1 className={styles.title}>The operationalizer</h1>
 
-      <section className={styles.canvasContainer}>
+        <section className={styles.canvasContainer}>
+          <article className={styles.canvasWrapper}>
+            <span className={styles.label}>Number 1</span>
+            <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
+          </article>
 
-        <article className={styles.canvasWrapper}>
-          <span className={styles.label}>Number 1</span>
-          <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
-        </article>
+          <article className={styles.canvasWrapper}>
+            <span className={styles.label}>Operator</span>
+            <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
+          </article>
 
-        <article className={styles.canvasWrapper}>
-          <span className={styles.label}>Operator</span>
-          <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
-        </article>
+          <article className={styles.canvasWrapper}>
+            <span className={styles.label}>Number 2</span>
+            <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
+          </article>
+        </section>
 
-        <article className={styles.canvasWrapper}>
-          <span className={styles.label}>Number 2</span>
-          <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
-        </article>
-
-      </section>
-      
-      {result && <div className={styles.result}>{result}</div>}
-      <div className={styles.buttonContainer}>
-        <button
-          className={styles.operationalizeButton}
-          onClick={handleOperationalize}
-        >
-          Calculate
-        </button>
-        <button className={styles.clearButton} onClick={handleClearAll}>
-          Clear All
-        </button>
-      </div>
-    </main>
+        {result && <div className={styles.result}>{result}</div>}
+        <div className={styles.buttonContainer}>
+          <button
+            className={styles.operationalizeButton}
+            onClick={handleOperationalize}
+          >
+            Calculate
+          </button>
+          <button className={styles.clearButton} onClick={handleClearAll}>
+            Clear All
+          </button>
+        </div>
+      </main>
+    </>
   );
 };
 

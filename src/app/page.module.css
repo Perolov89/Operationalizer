@@ -1,17 +1,8 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 40px;
-  background: linear-gradient(135deg, #8ec5fc, #e0c3fc);
-  min-height: 100vh;
-}
 
 .title {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: whitesmoke;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -32,7 +23,7 @@
 .label {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #333;
+  color: whitesmoke;
 }
 
 .result {
@@ -65,12 +56,12 @@
 }
 
 .operationalizeButton {
-  background: linear-gradient(135deg, #4caf50, #45a049);
+  background: linear-gradient(135deg, #00bfa5, #00796b);
   color: white;
 }
 
 .clearButton {
-  background: linear-gradient(135deg, #ff4e4e, #ba2323);
+  background: linear-gradient(135deg, #ff6f61, #d84315);
   color: white;
 }
 
