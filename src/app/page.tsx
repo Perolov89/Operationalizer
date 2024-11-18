@@ -3,9 +3,21 @@ import React, { useState } from "react";
 import Canvas from "./components/Canvas";
 import styles from "./page.module.css";
 
+/**
+Home Component
+ 
+This is the main component of the application, providing a UI for drawing two numbers
+and an operator on separate canvases. It sends these drawings to a backend service for
+prediction and performs a calculation based on the predictions.
+*/
+
 const Home: React.FC = () => {
-  const [clearTrigger, setClearTrigger] = useState(false);
-  const [result, setResult] = useState<number | null>(null);
+  const [clearTrigger, setClearTrigger] = useState(false); // State to trigger clearing all canvases.
+  const [result, setResult] = useState<number | null>(null); // State to hold the calculated result.
+
+
+   // Submits the drawn images to the backend for processing.
+   // dataUrls - Array of Base64 encoded strings representing the canvas content.
 
   const submitDrawing = async (dataUrls: string[]) => {
     try {
@@ -25,8 +37,8 @@ const Home: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
-        // check if predicted_symbol
         try {
+          // Extract predicted symbols and perform a calculation.
           const firstNumber = Number(result.firstNumber.predicted_symbol);
           const operator = result.operator.predicted_symbol;
           const secondNumber = Number(result.secondNumber.predicted_symbol);
@@ -48,7 +60,7 @@ const Home: React.FC = () => {
             default:
               throw new Error("Unsupported operator");
           }
-          setResult(calculation);
+          setResult(calculation); // Update the result state with the calculation.
         } catch (error) {
           console.log(`Error when converting to Numbers : ${error}`);
         }
@@ -63,6 +75,8 @@ const Home: React.FC = () => {
     }
   };
 
+  // Collects data from all canvas elements, converts them to Base64 strings,
+  // and submits them to the backend.
   const handleOperationalize = () => {
     const canvases = document.querySelectorAll("canvas");
     const dataUrls = Array.from(canvases).map((canvas) =>
@@ -71,6 +85,7 @@ const Home: React.FC = () => {
     submitDrawing(dataUrls);
   };
 
+  // Triggers the clearing of all canvases by toggling the `clearTrigger` state.
   const handleClearAll = () => {
     setClearTrigger((prev) => !prev);
   };
@@ -78,20 +93,26 @@ const Home: React.FC = () => {
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>The operationalizer</h1>
+
       <section className={styles.canvasContainer}>
+
         <article className={styles.canvasWrapper}>
           <span className={styles.label}>Number 1</span>
           <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
         </article>
+
         <article className={styles.canvasWrapper}>
           <span className={styles.label}>Operator</span>
           <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
         </article>
+
         <article className={styles.canvasWrapper}>
           <span className={styles.label}>Number 2</span>
           <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
         </article>
+
       </section>
+      
       {result && <div className={styles.result}>{result}</div>}
       <div className={styles.buttonContainer}>
         <button

@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px; 
+  gap: 15px;
   padding: 20px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #f3f3f3, #ffffff); 
+  background: linear-gradient(135deg, #f3f3f3, #ffffff);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  width: 320px; 
+  width: 320px;
 }
 
 .canvas {
