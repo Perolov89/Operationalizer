@@ -1,12 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Rubik+Distressed&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Rubik+Distressed&display=swap");
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   padding: 40px;
-  
   min-height: 100vh;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .title {
@@ -15,6 +29,7 @@
   color: whitesmoke;
   margin: 20px;
   text-align: center;
+  animation: fadeInUp 5s ease-in-out both;
 }
 
 .canvasContainer {

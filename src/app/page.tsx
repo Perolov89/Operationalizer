@@ -119,7 +119,7 @@ const Home: React.FC = () => {
             className={styles.operationalizeButton}
             onClick={handleOperationalize}
           >
-            Calculate
+            Operationalize!
           </button>
           <button className={styles.clearButton} onClick={handleClearAll}>
             Clear All
