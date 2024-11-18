@@ -88,6 +88,7 @@ const Home: React.FC = () => {
   // Triggers the clearing of all canvases by toggling the `clearTrigger` state.
   const handleClearAll = () => {
     setClearTrigger((prev) => !prev);
+    setResult(null);
   };
 
   return (
@@ -98,22 +99,22 @@ const Home: React.FC = () => {
 
         <section className={styles.canvasContainer}>
           <article className={styles.canvasWrapper}>
-            <span className={styles.label}>Number 1</span>
+            <span className={styles.label}>Draw me a number: 0-9</span>
             <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
           </article>
 
           <article className={styles.canvasWrapper}>
-            <span className={styles.label}>Operator</span>
+            <span className={styles.label}>Draw me an operator: + - x /</span>
             <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
           </article>
 
           <article className={styles.canvasWrapper}>
-            <span className={styles.label}>Number 2</span>
+            <span className={styles.label}>Draw me another number: 0-9</span>
             <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
           </article>
         </section>
 
-        {result && <div className={styles.result}>{result}</div>}
+        {result && <div className={styles.result}>Operationalizer says:  {result}</div>}
         <div className={styles.buttonContainer}>
           <button
             className={styles.operationalizeButton}
