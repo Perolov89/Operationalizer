@@ -16,6 +16,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Operationalizer",
   description: "Calculate with a CNN model!",
+  icons: {
+    icon: '/icon.png',
+  }
 };
 
 export default function RootLayout({
