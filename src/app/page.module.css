@@ -120,7 +120,6 @@
   color: rgb(172, 170, 170);
 }
 
-
 @media (max-width: 1020px) {
   .canvasContainer {
     flex-direction: column;

@@ -49,7 +49,6 @@ const Home: React.FC = () => {
           if (operator === "/" && secondNumber === 0) {
             setResult("Infinity ;-)");
           } else {
-
             switch (operator) {
               case "+":
                 calculation = firstNumber + secondNumber;
@@ -107,17 +106,17 @@ const Home: React.FC = () => {
         <section className={styles.canvasContainer}>
           <article className={styles.canvasWrapper}>
             <span className={styles.label}>Draw me a number: 0-9</span>
-            <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
+            <Canvas clearTrigger={clearTrigger} />
           </article>
 
           <article className={styles.canvasWrapper}>
             <span className={styles.label}>Draw me an operator: + - x /</span>
-            <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
+            <Canvas clearTrigger={clearTrigger} />
           </article>
 
           <article className={styles.canvasWrapper}>
             <span className={styles.label}>Draw me another number: 0-9</span>
-            <Canvas onSubmit={() => {}} clearTrigger={clearTrigger} />
+            <Canvas clearTrigger={clearTrigger} />
           </article>
         </section>
 

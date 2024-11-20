@@ -9,13 +9,11 @@ predict and calculate.
 */
 
 interface CanvasProps {
-  // Callback function to handle the submission of the canvas drawing.
-  onSubmit: (imageDataUrl: string) => void;
-  // Optional boolean prop to trigger a canvas clear operation.
+  // Optional boolean prop to trigger canvas clear.
   clearTrigger?: boolean;
 }
 
-const Canvas: React.FC<CanvasProps> = ({ onSubmit, clearTrigger }) => {
+const Canvas: React.FC<CanvasProps> = ({ clearTrigger }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);
 
@@ -35,34 +33,67 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit, clearTrigger }) => {
       }
     }
   }, []);
+
+  const getCoordinates = (
+    event: React.TouchEvent | React.MouseEvent,
+    canvas: HTMLCanvasElement
+  ): { x: number; y: number } | null => {
+    let x, y;
+    const rect = canvas.getBoundingClientRect();
+
+    if ("touches" in event) {
+      // Touch event
+      const touch = event.touches[0];
+      x = touch.clientX - rect.left;
+      y = touch.clientY - rect.top;
+    } else {
+      // Mouse event
+      x = event.nativeEvent.offsetX;
+      y = event.nativeEvent.offsetY;
+    }
+
+    // Scale coordinates based on canvas size vs display size
+    x = (x * canvas.width) / rect.width;
+    y = (y * canvas.height) / rect.height;
+
+    return { x, y };
+  };
   // Starts the drawing operation when the user presses the mouse down on the canvas.
   // e - The mouse event triggered by the user's interaction.
-  const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const startDrawing = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    const coords = getCoordinates(e, canvas);
+    if (!coords) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Configure the drawing properties.
     ctx.lineWidth = 20;
     ctx.lineCap = "round";
     ctx.strokeStyle = "black";
-
-    // Begin a new path and move to the starting point.
     ctx.beginPath();
-    ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctx.moveTo(coords.x, coords.y);
     setDrawing(true);
   };
 
-  // Draws on the canvas as the user moves the mouse while holding down the button.
-  const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const draw = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
     if (!drawing) return;
 
-    const ctx = canvasRef.current?.getContext("2d");
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const coords = getCoordinates(e, canvas);
+    if (!coords) return;
+
+    const ctx = canvas.getContext("2d");
     if (ctx) {
-      // Extend the path to the current mouse position and draw.
-      ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+      ctx.lineTo(coords.x, coords.y);
       ctx.stroke();
     }
   };
@@ -95,10 +126,14 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit, clearTrigger }) => {
         width={280}
         height={280}
         className={styles.canvas}
+        style={{ touchAction: "none" }} // Prevent touch scrolling/zooming
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
+        onTouchStart={startDrawing}
+        onTouchMove={draw}
+        onTouchEnd={stopDrawing}
       />
       <button onClick={handleClear} className={styles.clear_button}>
         Clear
