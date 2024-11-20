@@ -108,5 +108,3 @@ const Canvas: React.FC<CanvasProps> = ({ onSubmit, clearTrigger }) => {
 };
 
 export default Canvas;
-
-// Add touch screen

@@ -119,3 +119,47 @@
 .link:hover {
   color: rgb(172, 170, 170);
 }
+
+
+@media (max-width: 1020px) {
+  .canvasContainer {
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .canvasWrapper,
+  .canvasWrapper_main {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-top: 24px;
+  }
+
+  .label {
+    text-align: center;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .operationalizeButton,
+  .clearButton {
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .result {
+    font-size: 1.2rem;
+    width: 90%;
+    text-align: center;
+  }
+}
