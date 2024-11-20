@@ -15,7 +15,7 @@ prediction and performs a calculation based on the predictions.
 
 const Home: React.FC = () => {
   const [clearTrigger, setClearTrigger] = useState(false); // State to trigger clearing all canvases.
-  const [result, setResult] = useState<number | null>(null); // State to hold the calculated result.
+  const [result, setResult] = useState<number | string>(""); // State to hold the calculated result.
 
   // Submits the drawn images to the backend for processing.
   // dataUrls - Array of Base64 encoded strings representing the canvas content.
@@ -38,6 +38,7 @@ const Home: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
+
         try {
           // Extract predicted symbols and perform a calculation.
           const firstNumber = Number(result.firstNumber.predicted_symbol);
@@ -45,25 +46,31 @@ const Home: React.FC = () => {
           const secondNumber = Number(result.secondNumber.predicted_symbol);
 
           let calculation;
-          switch (operator) {
-            case "+":
-              calculation = firstNumber + secondNumber;
-              break;
-            case "-":
-              calculation = firstNumber - secondNumber;
-              break;
-            case "*":
-              calculation = firstNumber * secondNumber;
-              break;
-            case "/":
-              calculation = firstNumber / secondNumber;
-              break;
-            default:
-              throw new Error("Unsupported operator");
+          if (operator === "/" && secondNumber === 0) {
+            setResult("Infinity ;-)");
+          } else {
+
+            switch (operator) {
+              case "+":
+                calculation = firstNumber + secondNumber;
+                break;
+              case "-":
+                calculation = firstNumber - secondNumber;
+                break;
+              case "*":
+                calculation = firstNumber * secondNumber;
+                break;
+              case "/":
+                calculation = firstNumber / secondNumber;
+                break;
+              default:
+                throw new Error("Unsupported operator");
+            }
+            setResult(calculation); // Update the result state with the calculation.
           }
-          setResult(calculation); // Update the result state with the calculation.
         } catch (error) {
           console.log(`Error when converting to Numbers : ${error}`);
+          setResult("I cannot interpret what you have drawn...");
         }
         console.log("Predictions from Flask:", result);
         console.log(`Calculated result: ${result}`);
@@ -72,12 +79,11 @@ const Home: React.FC = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      setResult(null);
     }
   };
 
   // Collects data from all canvas elements, converts them to Base64 strings,
-  // and submits them to the backend.
+  // and submit them to the backend.
   const handleOperationalize = () => {
     const canvases = document.querySelectorAll("canvas");
     const dataUrls = Array.from(canvases).map((canvas) =>
@@ -89,7 +95,7 @@ const Home: React.FC = () => {
   // Triggers the clearing of all canvases by toggling the `clearTrigger` state.
   const handleClearAll = () => {
     setClearTrigger((prev) => !prev);
-    setResult(null);
+    setResult("");
   };
 
   return (
@@ -133,7 +139,10 @@ const Home: React.FC = () => {
           <Link className={styles.link} href="https://github.com/Perolov89">
             Github
           </Link>
-          <Link className={styles.link} href="https://www.linkedin.com/in/olle-s-013162273/">
+          <Link
+            className={styles.link}
+            href="https://www.linkedin.com/in/olle-s-013162273/"
+          >
             LinkedIn
           </Link>
         </section>
