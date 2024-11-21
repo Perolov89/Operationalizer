@@ -111,7 +111,7 @@ const Home: React.FC = () => {
           </article>
 
           <article className={styles.canvasWrapper}>
-            <span className={styles.label}>Draw me an operator: + - x /</span>
+            <span className={styles.label}>Draw me an operator: + - x ÷</span>
             <Canvas clearTrigger={clearTrigger} />
           </article>
 
