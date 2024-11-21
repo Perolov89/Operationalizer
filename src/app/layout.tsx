@@ -15,7 +15,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Operationalizer",
-  description: "Calculate with a CNN model!",
+  description: "Calculate with a ONNX model!",
   icons: {
     icon: '/icon.png',
   }
