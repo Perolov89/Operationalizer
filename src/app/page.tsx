@@ -16,12 +16,13 @@ prediction and performs a calculation based on the predictions.
 const Home: React.FC = () => {
   const [clearTrigger, setClearTrigger] = useState(false); // State to trigger clearing all canvases.
   const [result, setResult] = useState<number | string>(""); // State to hold the calculated result.
+  const [loading, setLoading] = useState(false); // State to track the loading state.
 
   // Submits the drawn images to the backend for processing.
   // dataUrls - Array of Base64 encoded strings representing the canvas content.
-
   const submitDrawing = async (dataUrls: string[]) => {
     try {
+      setLoading(true);
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL as string, {
         method: "POST",
         headers: {
@@ -65,7 +66,7 @@ const Home: React.FC = () => {
               default:
                 throw new Error("Unsupported operator");
             }
-            setResult(calculation); // Update the result state with the calculation.
+            setResult(calculation);
           }
         } catch (error) {
           console.log(`Error when converting to Numbers : ${error}`);
@@ -78,6 +79,8 @@ const Home: React.FC = () => {
       }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,9 +123,11 @@ const Home: React.FC = () => {
           </article>
         </section>
 
-        {result && (
+        {loading && <div className={styles.loadingMessage}>Processing...</div>}
+        {result && !loading && (
           <div className={styles.result}>Operationalizer says: {result}</div>
         )}
+
         <section className={styles.buttonContainer}>
           <button
             className={styles.operationalizeButton}
@@ -130,7 +135,11 @@ const Home: React.FC = () => {
           >
             Operationalize!
           </button>
-          <button className={styles.clearButton} onClick={handleClearAll}>
+          <button
+            className={styles.clearButton}
+            onClick={handleClearAll}
+            disabled={loading}
+          >
             Clear All
           </button>
         </section>
