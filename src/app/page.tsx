@@ -72,8 +72,6 @@ const Home: React.FC = () => {
           console.log(`Error when converting to Numbers : ${error}`);
           setResult("I cannot interpret what you have drawn...");
         }
-        console.log("Predictions from Flask:", result);
-        console.log(`Calculated result: ${result}`);
       } else {
         console.error("Failed to process images");
       }

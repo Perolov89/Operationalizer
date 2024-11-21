@@ -132,8 +132,7 @@
     padding: 10px;
   }
 
-  .canvasWrapper,
-  .canvasWrapper_main {
+  .canvasWrapper{
     width: 100%;
     max-width: 300px;
   }
